@@ -4,7 +4,7 @@ import subprocess
 package_name = "package_name"
 
 # Run the pip install command as a subprocess
-subprocess.check_call(['pip', 'install', streamlit-webrtc])
+subprocess.check_call(['pip', 'install', streamlit_webrtc])
 from streamlit_webrtc import VideoProcessorBase, RTCConfiguration,WebRtcMode,webrtc_streamer
 from utils import *
 import cv2
