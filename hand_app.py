@@ -1,4 +1,10 @@
-pip install streamlit streamlit-webrtc
+import subprocess
+
+# Define the package you want to install
+package_name = "package_name"
+
+# Run the pip install command as a subprocess
+subprocess.check_call(['pip', 'install', streamlit-webrtc])
 from streamlit_webrtc import VideoProcessorBase, RTCConfiguration,WebRtcMode,webrtc_streamer
 from utils import *
 import cv2
