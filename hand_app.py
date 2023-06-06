@@ -1,3 +1,5 @@
+
+import streamlit as st
 import subprocess
 
 # Define the package you want to install
@@ -8,7 +10,6 @@ subprocess.check_call(['pip', 'install', streamlit_webrtc])
 from streamlit_webrtc import VideoProcessorBase, RTCConfiguration,WebRtcMode,webrtc_streamer
 from utils import *
 import cv2
-import streamlit as st
 import mediapipe as mp
 import av
 
