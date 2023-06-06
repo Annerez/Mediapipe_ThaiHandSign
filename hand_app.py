@@ -3,7 +3,7 @@ import streamlit as st
 import subprocess
 
 # Define the package you want to install
-package_name = "streamlit_webrtc"
+package_name = "streamlit streamlit_webrtc"
 
 # Install the package using pip
 subprocess.check_call(['pip', 'install', package_name])
