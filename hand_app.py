@@ -5,6 +5,18 @@ import streamlit as st
 import mediapipe as mp
 import av
 
+RTC_CONFIGURATION = RTCConfiguration(
+{"iceServers":[{"urls": ["stun:ss-turn2.xirsys.com"]},
+{"username": "ux57AXNAOhE1PH1MDRB4gczpK8FblfmsOFMlux4faZGGzwxLzonJkCAk4McmnmI1AAAAAGSB8ZlBbm5lcg",
+"credential": "eae2c472-060f-11ee-b6bd-0242ac140004",
+"urls": ["turn:ss-turn2.xirsys.com:80?transport=udp",
+"turn:ss-turn2.xirsys.com:3478?transport=udp",
+"turn:ss-turn2.xirsys.com:80?transport=tcp",
+"turn:ss-turn2.xirsys.com:3478?transport=tcp",
+"turns:ss-turn2.xirsys.com:443?transport=tcp",
+"turns:ss-turn2.xirsys.com:5349?transport=tcp"]}]}
+)
+
 def sign_language_detector():
 
     class OpenCVVideoProcessor(VideoProcessorBase):
@@ -63,10 +75,7 @@ def sign_language_detector():
     webrtc_ctx = webrtc_streamer(
         key="opencv-filter",
         mode=WebRtcMode.SENDRECV,
-        client_settings=ClientSettings(
-            rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
-            media_stream_constraints={"video": True, "audio": False},
-        ),
+        rtc_configuration=RTC_CONFIGURATION,
         video_processor_factory=OpenCVVideoProcessor,
         async_processing=True,
     )
