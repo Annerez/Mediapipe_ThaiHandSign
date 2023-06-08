@@ -4,18 +4,14 @@ import cv2
 import streamlit as st
 import mediapipe as mp
 import av
+import os
+from twilio.rest import Client
 
-RTC_CONFIGURATION = RTCConfiguration(
-{"iceServers":[{"urls": ["stun:ss-turn2.xirsys.com"]},
-{"username": "ux57AXNAOhE1PH1MDRB4gczpK8FblfmsOFMlux4faZGGzwxLzonJkCAk4McmnmI1AAAAAGSB8ZlBbm5lcg",
-"credential": "eae2c472-060f-11ee-b6bd-0242ac140004",
-"urls": ["turn:ss-turn2.xirsys.com:80?transport=udp",
-"turn:ss-turn2.xirsys.com:3478?transport=udp",
-"turn:ss-turn2.xirsys.com:80?transport=tcp",
-"turn:ss-turn2.xirsys.com:3478?transport=tcp",
-"turns:ss-turn2.xirsys.com:443?transport=tcp",
-"turns:ss-turn2.xirsys.com:5349?transport=tcp"]}]}
-)
+account_sid = os.environ['AC1e98b1fdc2e1bd071a6a581a60ab9a9a']
+auth_token = os.environ['b1cead4d7c8484e91dc29d45534e5f51']
+client = Client(account_sid, auth_token)
+
+token = client.tokens.create()
 
 def sign_language_detector():
 
@@ -75,7 +71,9 @@ def sign_language_detector():
     webrtc_streamer(
         key="opencv-filter",
         mode=WebRtcMode.SENDRECV,
-        rtc_configuration=RTC_CONFIGURATION,
+        rtc_configuration={
+            "iceServers": token.ice_servers
+        },
         video_processor_factory=OpenCVVideoProcessor,
         async_processing=True,
     )
