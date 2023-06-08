@@ -1,13 +1,9 @@
-from streamlit_webrtc import VideoProcessorBase, RTCConfiguration,WebRtcMode,webrtc_streamer
+from streamlit_webrtc import VideoProcessorBase, RTCConfiguration,WebRtcMode,webrtc_streamer, ClientSettings
 from utils import *
 import cv2
 import streamlit as st
 import mediapipe as mp
 import av
-
-RTC_CONFIGURATION = RTCConfiguration(
-    {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}
-)
 
 def main():
     st.header("Live stream processing")
@@ -23,6 +19,8 @@ def main():
 
     if app_mode == sign_language_det:
         sign_language_detector()
+    st.session_state["started"] = webrtc_ctx.state.playing
+
 
 
 def sign_language_detector():
@@ -83,7 +81,10 @@ def sign_language_detector():
     webrtc_ctx = webrtc_streamer(
         key="opencv-filter",
         mode=WebRtcMode.SENDRECV,
-        rtc_configuration=RTC_CONFIGURATION,
+        client_settings=ClientSettings(
+            rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
+            media_stream_constraints={"video": True, "audio": False},
+        ),
         video_processor_factory=OpenCVVideoProcessor,
         async_processing=True,
     )
