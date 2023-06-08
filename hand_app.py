@@ -86,7 +86,6 @@ def main():
 
     if app_mode == sign_language_det:
         sign_language_detector()
-    st.session_state["started"] = webrtc_ctx.state.playing
 
 if __name__ == "__main__":
     main()
