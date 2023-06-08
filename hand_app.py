@@ -4,7 +4,6 @@ import cv2
 import streamlit as st
 import mediapipe as mp
 import av
-import os
 from twilio.rest import Client
 
 account_sid = 'AC1e98b1fdc2e1bd071a6a581a60ab9a9a'
