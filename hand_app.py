@@ -7,8 +7,8 @@ import av
 import os
 from twilio.rest import Client
 
-account_sid = os.environ['TWILIO_ACCOUNT_SID']
-auth_token = os.environ['TWILIO_AUTH_TOKEN']
+account_sid = os.environ['AC1e98b1fdc2e1bd071a6a581a60ab9a9a']
+auth_token = os.environ['b1cead4d7c8484e91dc29d45534e5f51']
 client = Client(account_sid, auth_token)
 
 token = client.tokens.create()
