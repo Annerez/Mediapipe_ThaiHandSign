@@ -5,24 +5,6 @@ import streamlit as st
 import mediapipe as mp
 import av
 
-def main():
-    st.header("Live stream processing")
-
-    sign_language_det = "Sign Language Live Detector"
-    app_mode = st.sidebar.selectbox( "Choose the app mode",
-        [
-            sign_language_det
-        ],
-    )
-
-    st.subheader(app_mode)
-
-    if app_mode == sign_language_det:
-        sign_language_detector()
-    st.session_state["started"] = webrtc_ctx.state.playing
-
-
-
 def sign_language_detector():
 
     class OpenCVVideoProcessor(VideoProcessorBase):
@@ -89,6 +71,22 @@ def sign_language_detector():
         async_processing=True,
     )
 
+    
+def main():
+    st.header("Live stream processing")
+
+    sign_language_det = "Sign Language Live Detector"
+    app_mode = st.sidebar.selectbox( "Choose the app mode",
+        [
+            sign_language_det
+        ],
+    )
+
+    st.subheader(app_mode)
+
+    if app_mode == sign_language_det:
+        sign_language_detector()
+    st.session_state["started"] = webrtc_ctx.state.playing
 
 if __name__ == "__main__":
     main()
