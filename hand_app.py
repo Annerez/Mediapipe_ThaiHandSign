@@ -4,13 +4,10 @@ import cv2
 import streamlit as st
 import mediapipe as mp
 import av
-from twilio.rest import Client
 
-account_sid = 'AC1e98b1fdc2e1bd071a6a581a60ab9a9a'
-auth_token = 'b1cead4d7c8484e91dc29d45534e5f51'
-client = Client(account_sid, auth_token)
-
-token = client.tokens.create()
+RTC_CONFIGURATION = RTCConfiguration(
+    {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}
+)
 
 def sign_language_detector():
 
@@ -70,9 +67,7 @@ def sign_language_detector():
     webrtc_streamer(
         key="opencv-filter",
         mode=WebRtcMode.SENDRECV,
-        rtc_configuration={
-            "iceServers": token.ice_servers
-        },
+        rtc_configuration=RTC_CONFIGURATION
         video_processor_factory=OpenCVVideoProcessor,
         async_processing=True,
     )
