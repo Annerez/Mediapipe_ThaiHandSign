@@ -4,6 +4,7 @@ import cv2
 import streamlit as st
 import mediapipe as mp
 import av
+from tensorflow.keras.models import load_model
 
 RTC_CONFIGURATION = RTCConfiguration(
     {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}
