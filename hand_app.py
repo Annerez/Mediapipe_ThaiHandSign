@@ -6,7 +6,28 @@ import mediapipe as mp
 import av
 
 RTC_CONFIGURATION = RTCConfiguration(
-    {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}
+    {"iceServers":
+        [
+            {
+                "urls": ["stun:relay.metered.ca:80"]
+            },
+            {
+                "urls": ["turn:relay.metered.ca:80"],
+                "username": ["7c6e2dfc7ba5dd33578fc9e1"],
+                "credential": ["18GkZDVEKpCweYAf"]
+            },
+            {
+                "urls": ["turn:relay.metered.ca:443"],
+                "username": ["7c6e2dfc7ba5dd33578fc9e1"],
+                "credential": ["18GkZDVEKpCweYAf"]
+            },
+            {
+                "urls": ["turn:relay.metered.ca:443?transport=tcp"],
+                "username": ["7c6e2dfc7ba5dd33578fc9e1"],
+                "credential": ["18GkZDVEKpCweYAf"]
+            }
+        ]
+    }
 )
 
 mp_holistic = mp.solutions.holistic # Holistic model
