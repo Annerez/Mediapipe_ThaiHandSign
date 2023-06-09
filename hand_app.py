@@ -71,7 +71,7 @@ def sign_language_detector():
             return av.VideoFrame.from_ndarray(image, format="bgr24")
 
 
-    webrtc_streamer(
+     webrtc_ctx = webrtc_streamer(
         key="opencv-filter",
         mode=WebRtcMode.SENDRECV,
         rtc_configuration=RTC_CONFIGURATION
