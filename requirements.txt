@@ -3,3 +3,4 @@ streamlit-webrtc
 mediapipe
 tensorflow
 pillow
+numpy
