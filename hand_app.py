@@ -20,7 +20,7 @@ actions = np.array(['สวัสดี', 'ตก', 'รอ', 'กลับ', '�
 
  # Load the model from Modelo folder:
 
-model = load_model('action2.h5',actions)
+model = load_model('action2.h5')
 
 def main():
     st.header("Live stream processing")
