@@ -18,6 +18,7 @@ def sign_language_detector():
         def __init__(self):
             self.sequence = []
             self.sentence = []
+            self.predictions = []
             self.threshold = 0.8
             self.mp_holistic = mp.solutions.holistic # Holistic model
             self.mp_drawing = mp.solutions.drawing_utils # Drawing utilities
@@ -45,24 +46,27 @@ def sign_language_detector():
 
                 if len(self.sequence) == 30:
                     res = self.model.predict(np.expand_dims(self.sequence, axis=0))[0]
+                    self.predictions.append(np.argmax(res))
 
                     # 3. Viz logic
-                    if res[np.argmax(res)] > self.threshold: 
-                        if len(self.sentence) > 0: 
-                            if self.actions[np.argmax(res)] != self.sentence[-1]:
+                    if np.unique(self.predictions[-10:])[0]==np.argmax(res):
+                        if res[np.argmax(res)] > self.threshold: 
+                            if len(self.sentence) > 0: 
+                                if self.actions[np.argmax(res)] != self.sentence[-1]:
+                                    self.sentence.append(self.actions[np.argmax(res)])
+                            else:
                                 self.sentence.append(self.actions[np.argmax(res)])
-                        else:
-                            self.sentence.append(self.actions[np.argmax(res)])
 
                     if len(self.sentence) > 5: 
                         self.sentence = self.sentence[-5:]
 
-                    # Viz probabilities
-                    image = prob_viz(res, self.actions, image)
-
                 cv2.rectangle(image, (0,0), (640, 40), (234, 234, 77), 1)
-                cv2.putText(image, ' '.join(self.sentence), (3,30), 
-                            cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+                fontpath = "angsana.ttc"
+                font = ImageFont.truetype(fontpath, 30)
+                img_pil = Image.fromarray(image)
+                draw = ImageDraw.Draw(img_pil)
+                draw.text((30, 0),  ' '.join(self.sentence), font = font, fill = (255, 255, 255, 255))
+                image = np.array(img_pil)
 
             return av.VideoFrame.from_ndarray(image, format="bgr24")
 
