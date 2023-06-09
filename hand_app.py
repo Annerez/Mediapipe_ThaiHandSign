@@ -4,7 +4,6 @@ import cv2
 import streamlit as st
 import mediapipe as mp
 import av
-from tensorflow.keras.models import load_model
 from PIL import ImageFont, Image, ImageDraw
 import numpy as np
 
@@ -20,7 +19,7 @@ actions = np.array(['สวัสดี', 'ตก', 'รอ', 'กลับ', '�
 
  # Load the model from Modelo folder:
 
-model = load_model('action2.h5')
+model = load_model('action2.h5', actions)
 
 def main():
     st.header("Live stream processing")
