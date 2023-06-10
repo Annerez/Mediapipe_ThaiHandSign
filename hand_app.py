@@ -25,17 +25,14 @@ def main():
     st.header("Live stream processing")
 
     sign_language_det = "Sign Language Live Detector"
-    app_mode = st.sidebar.selectbox( "Choose the app mode",
-        [
-            sign_language_det
-        ],
-    )
-    
-    video_file = st.sidebar.file_uploader("Upload a video file", type=["mp4"])
+    app_mode = st.sidebar.selectbox("Choose the app mode", [sign_language_det])
 
     st.subheader(app_mode)
-    if video_file is not None:
-        sign_language_detector(video_file)
+
+    if app_mode == sign_language_det:
+        video_file = st.sidebar.file_uploader("Upload a video file", type=["mp4"])
+        if video_file is not None:
+            sign_language_detector(video_file)
 
 
 def sign_language_detector(video_file):
@@ -90,7 +87,7 @@ def sign_language_detector(video_file):
 
                     return image
 
-    video_cap = cv2.VideoCapture(video_file)
+    video_cap = cv2.VideoCapture(video_file.name)
 
     video_processor = VideoProcessor()
 
@@ -100,6 +97,14 @@ def sign_language_detector(video_file):
             break
 
         processed_frame = video_processor.process_frame(frame)
+
+        st.image(processed_frame, channels="BGR")
+
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+    video_cap.release()
+    cv2.destroyAllWindows()
 
     webrtc_ctx = webrtc_streamer(
         key="opencv-filter",
