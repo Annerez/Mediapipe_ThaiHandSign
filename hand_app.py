@@ -91,7 +91,7 @@ def download_predicted_video(frames):
 
     st.download_button("Download Predicted Video", data=video_bytes, file_name="predicted_video.mp4")
 
-def main():
+def main(holistic):
     st.title("Video Processing Web App")
 
     # Upload video file
@@ -109,5 +109,7 @@ def main():
 
         st.video(video_bytes)
 
+
 if __name__ == "__main__":
-    main()
+    with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic_model:
+        main(holistic_model)
