@@ -52,7 +52,7 @@ def process_frame(frame, holistic_model, actions):
     return image
 
 # Function to load and process video frames
-def process_video(video_path, holistic_model):
+def process_video(video_path):
     cap = cv2.VideoCapture(video_path)
     frames = []
     with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
@@ -60,7 +60,7 @@ def process_video(video_path, holistic_model):
             ret, frame = cap.read()
             if not ret:
                 break
-            processed_frame = process_frame(frame, holistic_model, actions)
+            processed_frame = process_frame(frame, holistic, actions)
             frames.append(processed_frame)
         cap.release()
     return frames
@@ -91,14 +91,14 @@ def download_predicted_video(frames):
 
     st.download_button("Download Predicted Video", data=video_bytes, file_name="predicted_video.mp4")
 
-def main(holistic):
+def main():
     st.title("Video Processing Web App")
 
     # Upload video file
     video_file = st.file_uploader("Upload video file", type=["mp4"])
     if video_file is not None:
         video_path = save_uploaded_file(video_file)
-        frames = process_video(video_path, holistic)
+        frames = process_video(video_path)
 
         # Download predicted video
         download_predicted_video(frames)
@@ -111,5 +111,4 @@ def main(holistic):
 
 
 if __name__ == "__main__":
-    with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic_model:
-        main(holistic_model)
+    main()
