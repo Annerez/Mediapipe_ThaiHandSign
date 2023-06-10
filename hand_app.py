@@ -1,6 +1,5 @@
 from tempfile import NamedTemporaryFile
 import tempfile
-from tensorflow.keras.models import load_model
 import cv2
 from PIL import Image, ImageDraw, ImageFont
 import numpy as np
