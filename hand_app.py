@@ -98,7 +98,7 @@ def main():
     video_file = st.file_uploader("Upload video file", type=["mp4"])
     if video_file is not None:
         video_path = save_uploaded_file(video_file)
-        frames = process_video(video_path)
+        frames = process_video(video_path, holistic)
 
         # Download predicted video
         download_predicted_video(frames)
