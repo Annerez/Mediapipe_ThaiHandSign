@@ -7,10 +7,6 @@ import av
 from PIL import ImageFont, Image, ImageDraw
 import numpy as np
 
-RTC_CONFIGURATION = RTCConfiguration(
-    {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}
-)
-
 mp_holistic = mp.solutions.holistic # Holistic model
 mp_drawing = mp.solutions.drawing_utils # Drawing utilities
 
@@ -105,15 +101,6 @@ def sign_language_detector(video_file):
 
     video_cap.release()
     cv2.destroyAllWindows()
-
-    webrtc_ctx = webrtc_streamer(
-        key="opencv-filter",
-        mode=WebRtcMode.SENDRECV,
-        rtc_configuration=RTC_CONFIGURATION,
-        video_processor_factory=VideoProcessor,
-        async_processing=True,
-    )
-
 
 if __name__ == "__main__":
     main()
