@@ -30,6 +30,8 @@ def main():
             sign_language_det
         ],
     )
+    
+    video_file = st.sidebar.file_uploader("Upload a video file", type=["mp4"])
 
     st.subheader(app_mode)
 
@@ -39,57 +41,74 @@ def main():
 
 def sign_language_detector():
 
-    class OpenCVVideoProcessor(VideoProcessorBase):
-        def __init__(self):
-            self.sequence = []
-            self.sentence = []
-            self.predictions = []
-            self.threshold = 0.8
+    class VideoProcessor:
+            def __init__(self):
+                self.sequence = []
+                self.sentence = []
+                self.predictions = []
+                self.threshold = 0.8
 
-        def recv(self, frame: av.VideoFrame) -> av.VideoFrame:
-            img = frame.to_ndarray(format="bgr24")
+            def process_frame(self, img):
+                # 1. New detection variables
+                flip_img = cv2.flip(img, 1)
 
-            # 1. New detection variables
-            flip_img = cv2.flip(img, 1)
+                # Set mediapipe model
+                with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
+                    # Make detections
+                    image, results = mediapipe_detection(flip_img, holistic)
 
-            # Set mediapipe model 
-            with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
-                # Make detections
-                image, results = mediapipe_detection(flip_img, holistic)
+                    # Draw landmarks
+                    draw_styled_landmarks(image, results)
 
-                # Draw landmarks
-                draw_styled_landmarks(image, results)
+                    # 2. Prediction logic
+                    keypoints = extract_keypoints(results)
+                    self.sequence.append(keypoints)
+                    self.sequence = self.sequence[-30:]
 
-                # 2. Prediction logic
-                keypoints = extract_keypoints(results)
-                self.sequence.append(keypoints)
-                self.sequence = self.sequence[-30:]
+                    if len(self.sequence) == 30:
+                        res = model.predict(np.expand_dims(self.sequence, axis=0))[0]
+                        self.predictions.append(np.argmax(res))
 
-                if len(self.sequence) == 30:
-                    res = model.predict(np.expand_dims(self.sequence, axis=0))[0]
-                    self.predictions.append(np.argmax(res))
-
-                    # 3. Viz logic
-                    if np.unique(self.predictions[-10:])[0]==np.argmax(res):
-                        if res[np.argmax(res)] > self.threshold: 
-                            if len(self.sentence) > 0: 
-                                if actions[np.argmax(res)] != self.sentence[-1]:
+                        # 3. Viz logic
+                        if np.unique(self.predictions[-10:])[0] == np.argmax(res):
+                            if res[np.argmax(res)] > self.threshold:
+                                if len(self.sentence) > 0:
+                                    if actions[np.argmax(res)] != self.sentence[-1]:
+                                        self.sentence.append(actions[np.argmax(res)])
+                                else:
                                     self.sentence.append(actions[np.argmax(res)])
-                            else:
-                                self.sentence.append(actions[np.argmax(res)])
 
-                    if len(self.sentence) > 5: 
-                        self.sentence = self.sentence[-5:]
+                        if len(self.sentence) > 5:
+                            self.sentence = self.sentence[-5:]
 
-                cv2.rectangle(image, (0,0), (640, 40), (234, 234, 77), 1)
-                fontpath = "./angsana.ttc"
-                font = ImageFont.truetype(fontpath, 30)
-                img_pil = Image.fromarray(image)
-                draw = ImageDraw.Draw(img_pil)
-                draw.text((30, 0),  ' '.join(self.sentence), font = font, fill = (255, 255, 255, 255))
-                image = np.array(img_pil)
+                    cv2.rectangle(image, (0, 0), (640, 40), (234, 234, 77), 1)
+                    fontpath = "./angsana.ttc"
+                    font = ImageFont.truetype(fontpath, 30)
+                    img_pil = Image.fromarray(image)
+                    draw = ImageDraw.Draw(img_pil)
+                    draw.text((30, 0), ' '.join(self.sentence), font=font, fill=(255, 255, 255, 255))
+                    image = np.array(img_pil)
 
-            return av.VideoFrame.from_ndarray(image, format="bgr24")
+                    return image
+
+    video_cap = cv2.VideoCapture(video_file)
+
+    video_processor = VideoProcessor()
+
+    while video_cap.isOpened():
+        ret, frame = video_cap.read()
+        if not ret:
+            break
+
+        processed_frame = video_processor.process_frame(frame)
+
+        cv2.imshow("Sign Language Live Detector", processed_frame)
+
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+    video_cap.release()
+    cv2.destroyAllWindows()
 
 
     webrtc_ctx = webrtc_streamer(
