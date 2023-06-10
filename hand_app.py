@@ -34,12 +34,11 @@ def main():
     video_file = st.sidebar.file_uploader("Upload a video file", type=["mp4"])
 
     st.subheader(app_mode)
+    if video_file is not None:
+        sign_language_detector(video_file)
 
-    if app_mode == sign_language_det:
-        sign_language_detector()
 
-
-def sign_language_detector():
+def sign_language_detector(video_file):
 
     class VideoProcessor:
             def __init__(self):
