@@ -90,6 +90,16 @@ def sign_language_detector(video_file):
 
                     return image
 
+    video_cap = cv2.VideoCapture(video_file)
+
+    video_processor = VideoProcessor()
+
+    while video_cap.isOpened():
+        ret, frame = video_cap.read()
+        if not ret:
+            break
+
+        processed_frame = video_processor.process_frame(frame)
 
     webrtc_ctx = webrtc_streamer(
         key="opencv-filter",
