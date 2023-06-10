@@ -60,7 +60,6 @@ def process_video(video_path):
             ret, frame = cap.read()
             if not ret:
                 break
-            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             processed_frame = process_frame(frame, holistic, actions)
             frames.append(processed_frame)
         cap.release()
