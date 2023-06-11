@@ -48,7 +48,7 @@ def process_frame(frame, holistic_model, actions):
     draw.text((50, 80), ''.join(sentence), font=font, fill=(0, 128, 255, 255))
     image = np.array(img_pil)
     
-    return image
+    return image, sentence
 
 # Function to load and process video frames
 def process_video(video_path):
@@ -59,10 +59,11 @@ def process_video(video_path):
             ret, frame = cap.read()
             if not ret:
                 break
-            processed_frame = process_frame(frame, holistic, actions)
+            processed_frame, sentence = process_frame(frame, holistic, actions)
             frames.append(processed_frame)
+            predicted_sentences.append(sentence)
         cap.release()
-    return frames
+    return frames, predicted_sentences
 
 # Helper function to save the uploaded video file
 def save_uploaded_file(video_file):
@@ -97,12 +98,13 @@ def main():
     video_file = st.file_uploader("Upload video file", type=["mp4"])
     if video_file is not None:
         video_path = save_uploaded_file(video_file)
-        frames = process_video(video_path)
-
+        frames, predicted_sentences = process_video(video_path)
+        for frame, sentence in zip(frames, predicted_sentences):
+            st.image(frame, caption=''.join(sentence))
         # Download predicted video
         download_predicted_video(frames)
+
         # show video
-        
         video_file = open('predicted_video.mp4', 'rb')
         video_bytes = video_file.read()
 
