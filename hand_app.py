@@ -106,7 +106,7 @@ def main():
         download_predicted_video(frames)
 
         # show video
-        video_file = open(frames, 'rb')
+        video_file = open("predicted_video.mp4, 'rb')
         video_bytes = video_file.read()
 
         st.video(video_bytes)
