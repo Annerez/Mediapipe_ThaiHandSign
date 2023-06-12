@@ -10,9 +10,9 @@ import numpy as np
 RTC_CONFIGURATION = RTCConfiguration(
     {"iceServers": [
         {
-            "urls": "turn:relay.metered.ca:80",
-            "username": "7c6e2dfc7ba5dd33578fc9e1",
-            "credential": "18GkZDVEKpCweYAf",
+            "urls": "turn:a.relay.metered.ca:80",
+            "username": "03764157c8f05270854833ef",
+            "credential": "B9ayYEbnm24HlLIU",
         }
     ]}
 )
