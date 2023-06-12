@@ -5,4 +5,4 @@ pillow
 numpy
 temp
 datetime
-time
+python-time
