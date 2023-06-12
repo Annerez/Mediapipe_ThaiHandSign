@@ -7,15 +7,15 @@ import av
 from PIL import ImageFont, Image, ImageDraw
 import numpy as np
 
-RTC_CONFIGURATION = RTCConfiguration(
-    {"iceServers": [
+RTC_CONFIGURATION = {
+    "iceServers": [
         {
             "urls": "turn:a.relay.metered.ca:80",
             "username": "03764157c8f05270854833ef",
             "credential": "B9ayYEbnm24HlLIU",
         }
-    ]}
-)
+    ]
+}
 
 mp_holistic = mp.solutions.holistic # Holistic model
 mp_drawing = mp.solutions.drawing_utils # Drawing utilities
