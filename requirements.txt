@@ -3,6 +3,6 @@ mediapipe
 tensorflow
 pillow
 numpy
-tempfile
+temp
 datetime
 time
