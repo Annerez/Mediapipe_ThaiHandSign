@@ -8,7 +8,13 @@ from PIL import ImageFont, Image, ImageDraw
 import numpy as np
 
 RTC_CONFIGURATION = RTCConfiguration(
-    {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}
+    {"iceServers": [
+        {
+            "urls": "turn:relay.metered.ca:80",
+            "username": "7c6e2dfc7ba5dd33578fc9e1",
+            "credential": "18GkZDVEKpCweYAf",
+        }
+    ]}
 )
 
 mp_holistic = mp.solutions.holistic # Holistic model
