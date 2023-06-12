@@ -96,6 +96,7 @@ def sign_language_detector():
         key="opencv-filter",
         mode=WebRtcMode.SENDRECV,
         rtc_configuration=RTC_CONFIGURATION,
+        media_stream_constraints={"video": True, "audio": False},
         video_processor_factory=OpenCVVideoProcessor,
         async_processing=True,
     )
