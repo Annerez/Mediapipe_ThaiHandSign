@@ -1,3 +1,4 @@
+streamlit
 opencv-python
 mediapipe
 tensorflow
