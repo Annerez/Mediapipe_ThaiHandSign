@@ -8,4 +8,5 @@ Machine Learning model ใช้สำหรับการทำนายภา
 ทดลองใช้ได้ที่ https://thaihandsign.onrender.com/
 
 ดูตัวอย่างท่าทางได้ที่ [th-sl.com](https://www.th-sl.com/)
+
 ดูจำนวนคำได้ที่ actions.txt
