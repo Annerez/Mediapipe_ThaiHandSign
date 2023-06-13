@@ -7,4 +7,4 @@ Machine Learning model ใช้สำหรับการทำนายภา
 # Demo
 ทดลองใช้ได้ที่ https://thaihandsign.onrender.com/
 
-ดูจำนวนคำได้ที่ actions.txt
+ดูจำนวนคำได้ที่ /actions.txt
