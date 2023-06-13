@@ -9,4 +9,4 @@ Machine Learning model ใช้สำหรับการทำนายภา
 
 ดูตัวอย่างท่าทางได้ที่ [th-sl.com](https://www.th-sl.com/)
 
-ดูจำนวนคำได้ที่ actions.txt
+ดูจำนวนคำได้ที่ [actions.txt](https://github.com/Annerez/Mediapipe_ThaiHandSign/blob/main/actions.txt)
