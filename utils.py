@@ -50,7 +50,6 @@ def extract_keypoints(results):
     rh = np.array([[res.x, res.y, res.z] for res in results.right_hand_landmarks.landmark]).flatten() if results.right_hand_landmarks else np.zeros(21*3)
     
     output =  np.concatenate([pose, face, lh, rh])
-    print(f" Keypoints memory : {sys.getsizeof(output) * 1e-6} MB")
     return output
 
 
@@ -62,7 +61,6 @@ def load_model(model_path,actions):
 
     model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=['categorical_accuracy'])
     model.load_weights(model_path)
-    print(f" Keras Model memory : {sys.getsizeof(model) * 1e-6} MB")
 
     return model
 
@@ -78,5 +76,4 @@ def load_model2(model_path,actions):
     model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=['categorical_accuracy'])
     model.load_weights(model_path)
 
-    return model
     return model
