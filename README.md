@@ -1,7 +1,7 @@
 # Mediapipe_ThaiHandSign
 Machine Learning model ใช้สำหรับการทำนายภาษามือไทย
 # Dataset
-เก็บข้อมูลที่ใช้ในการเทรนโมเดลด้วยตัวเองและกล้องหนึ่งตัว
+เก็บข้อมูลที่ใช้ในการเทรนโมเดลทั้งหมดด้วยตัวเองและกล้องหนึ่งตัว
 
 สามารถดูชุดข้อมูลได้ที่ [drive](https://drive.google.com/drive/u/0/folders/1KYh-4drGo-J1xYOIgOe9ldKfKVsviWBA)
 # Demo
