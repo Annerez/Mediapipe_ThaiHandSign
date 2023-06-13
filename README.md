@@ -3,7 +3,7 @@ Machine Learning model ใช้สำหรับการทำนายภา
 # Dataset
 เก็บข้อมูลที่ใช้ในการเทรนโมเดลด้วยตัวเองและกล้องหนึ่งตัว
 
-สามารถดูชุดข้อมูลได้ที่ https://drive.google.com/drive/u/0/folders/1KYh-4drGo-J1xYOIgOe9ldKfKVsviWBA
+สามารถดูชุดข้อมูลได้ที่ [drive](https://drive.google.com/drive/u/0/folders/1KYh-4drGo-J1xYOIgOe9ldKfKVsviWBA)
 # Demo
 ทดลองใช้ได้ที่ https://thaihandsign.onrender.com/
 
