@@ -24,7 +24,7 @@ def process_video(video_path):
 
             image, results = mediapipe_detection(frame, holistic)
 
-            draw_styled_landmarks(image, results)
+            draw_styled_landmarks(image, results, mp_drawing, mp_holistic)
 
             keypoints = extract_keypoints(results)
 
