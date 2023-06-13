@@ -6,3 +6,5 @@ Machine Learning model ใช้สำหรับการทำนายภา
 สามารถดูชุดข้อมูลได้ที่ https://drive.google.com/drive/u/0/folders/1KYh-4drGo-J1xYOIgOe9ldKfKVsviWBA
 # Demo
 ทดลองใช้ได้ที่ https://thaihandsign.onrender.com/
+
+ดูจำนวนคำได้ที่ actions.txt
