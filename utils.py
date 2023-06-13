@@ -1,6 +1,8 @@
 import cv2
 import numpy as np
 import mediapipe as mp
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import LSTM, Dense
 import sys
 
 mp_holistic = mp.solutions.holistic
