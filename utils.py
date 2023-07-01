@@ -51,10 +51,12 @@ def extract_keypoints(results):
 
 
 def load_model(model_path,actions):
-    model = Sequential()
 
-    model.add(LSTM(256, return_sequences=False, activation='relu', input_shape=(30, 1662), dropout=0.2))
-    model.add(Dense(109, activation='softmax'))
+    model = Sequential()
+    model.add(LSTM(128, return_sequences=True, activation='relu', input_shape=(30, 258)))
+    model.add(LSTM(64, return_sequences=False, activation='relu'))
+    model.add(Dense(32, activation='relu'))
+    model.add(Dense(actions.shape[0], activation='softmax'))
 
     model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=['categorical_accuracy'])
     model.load_weights(model_path)
