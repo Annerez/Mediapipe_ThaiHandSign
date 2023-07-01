@@ -103,8 +103,8 @@ def main():
     global actions
 
     large = "Large Model (110 words)"
-    medium = "Normal Model (45 words) (recommended)"
-    test = "Test Model (3 words)"
+    medium = "Normal Model (30 words) (recommended)"
+    test = "Test Model (4 words)"
     options = [test, medium, large]
     app_mode = st.sidebar.selectbox("Choose the app mode", options)
 
